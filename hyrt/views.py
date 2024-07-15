@@ -17,11 +17,13 @@ def letters_list(request):
         serializer = LetterSerializer(letters, many=True)
         return Response(serializer.data)
     
+
     if(request.method == 'POST'):
         serializer = LetterSerializer(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
         
 
 @api_view(['GET'])
@@ -30,7 +32,7 @@ def get_letter_by_id(request, id):
     try:
         letter = Letter.objects.get(pk=id)
     except Letter.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"Not Found": "This id does not exist."}, status=status.HTTP_404_NOT_FOUND)
      
     if request.method == 'GET':
         serializer = LetterSerializer(letter)
