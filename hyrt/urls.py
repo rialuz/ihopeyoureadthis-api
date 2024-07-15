@@ -20,6 +20,6 @@ from hyrt import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('letters', views.letters_list),
-    path('letters/<int:id>', views.get_letter_by_id)
+    path('api/v1/letters', views.letters_list),
+    path('api/v1/letters/<int:id>', views.get_letter_by_id)
 ]
