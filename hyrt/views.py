@@ -17,19 +17,11 @@ class ListResultsView(generics.ListAPIView):
     search_fields = ['recipient']
     http_method_names = ["get","post"]
 
-    # def create_letter(request):
-    #     if(request.method == 'POST'):
-    #         serializer = LetterSerializer(data=request.data)
-    #         if serializer.is_valid(raise_exception=True):
-    #             serializer.save()
-    #             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 class LetterView(generics.ListAPIView):
     queryset = Letter.objects.all().order_by('-created_at')
     serializer_class = LetterSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filter_fields = ('recipient')
-
 
 @api_view(['POST'])
 def create_letter(request):
