@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from hyrt import views
+from .views import ListResultsView, get_letter_by_id, create_letter
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/letters', views.letters_list),
-    path('api/v1/letters/<int:id>', views.get_letter_by_id)
+    path('api/v1/letters', ListResultsView.as_view()),
+    path('api/v1/letters/<int:id>', get_letter_by_id),
+    path('api/v1/create', create_letter)
 ]
